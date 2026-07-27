@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Properties;
 
 public class Cli {
 
@@ -24,6 +25,12 @@ public class Cli {
 			}else if(command.equals("time")){
 				LocalDateTime time = LocalDateTime.now();
 				System.out.println(time); 
+			}else if(command.equals("username")){
+				String username = System.getProperty("user.name");
+				System.out.println(username);
+			}else if(command.equals("userhome")){
+				String userhome = System.getProperty("user.home");
+				System.out.println(userhome);
 			}else {
 				// String concatenation
 				output = "Command '" + command + "' not found.";
@@ -37,3 +44,4 @@ public class Cli {
 
 }
 
+ 
