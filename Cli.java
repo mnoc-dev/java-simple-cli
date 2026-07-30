@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Properties;
+import java.lang.System;
 
 public class Cli {
 
@@ -17,20 +18,85 @@ public class Cli {
 		while (true) { // Infinite loop
 			String command = scanner.nextLine(); // Get input from console as a string
 			String output = ""; // A variable named output of type String
+
+			String[] ret = command.split(" ", 5);
+			String cmdInput = ret[0];
+			int length = ret.length;
+
+			LocalDate date = LocalDate.now(); // Create a date object
+			LocalDateTime time = LocalDateTime.now();
+
+			String username = System.getProperty("user.name");
+			String userhome = System.getProperty("user.home");
+
+			String os = System.getProperty("os.name");
+			String osv = System.getProperty("os.version");
+
+
 			if (command.equals("exit")) {
 				break; // Forces exit of the while loop
-			}else if(command.equals("date")){
-				LocalDate date = LocalDate.now(); // Create a date object
-				System.out.println(date); // Display the current date
-			}else if(command.equals("time")){
-				LocalDateTime time = LocalDateTime.now();
-				System.out.println(time); 
-			}else if(command.equals("username")){
-				String username = System.getProperty("user.name");
-				System.out.println(username);
-			}else if(command.equals("userhome")){
-				String userhome = System.getProperty("user.home");
-				System.out.println(userhome);
+			}
+			else if(command.equals("date")){
+				output = date.toString();
+				//output = LocalDate.now().toString();   it's a chain but not so readable for others
+			}
+			else if(command.equals("time")){
+				output = time.toString(); 
+			}
+			else if(command.equals("username")){
+				output = username.toString();
+			}
+			else if(command.equals("userhome")){
+				output = userhome.toString();
+			}
+			else if(command.equals("os")){
+				output = String.format ("%s(%s)", os, osv);
+			}
+			else if(cmdInput.equals("printenv")){
+				if(length > 1){
+					String argument = ret[1];
+
+					String printenv = System.getenv(argument);
+					output = printenv;
+				
+				
+					if(printenv == null){
+					output = " ";
+					}
+				}
+			}
+			else if (cmdInput.equals("echo")){
+				
+				String argument = ret[1];
+				String path = ret[2];
+
+				if(argument.equals("date")){
+					output = date.toString();
+				}
+
+				if(argument.equals("time")){
+					output = time.toString();
+				}
+
+				if(argument.equals("userhome")){
+					output = userhome.toString();
+				}
+
+				if(argument.equals("os")){
+					output = String.format ("%s(%s)", os, osv);
+				}
+
+				if(argument.equals("printenv")){
+					if(length > 1){
+					String printenv = System.getenv(argument);
+					output = path;
+					if(printenv == null){
+					}
+					}
+
+				}
+
+
 			}else {
 				// String concatenation
 				output = "Command '" + command + "' not found.";
@@ -44,4 +110,3 @@ public class Cli {
 
 }
 
- 
