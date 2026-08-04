@@ -23,81 +23,60 @@ public class Cli {
 			String cmdInput = ret[0];
 			int length = ret.length;
 
-			LocalDate date = LocalDate.now(); // Create a date object
-			LocalDateTime time = LocalDateTime.now();
 
-			String username = System.getProperty("user.name");
-			String userhome = System.getProperty("user.home");
 
-			String os = System.getProperty("os.name");
-			String osv = System.getProperty("os.version");
 
 
 			if (command.equals("exit")) {
 				break; // Forces exit of the while loop
 			}
 			else if(command.equals("date")){
+			
+				LocalDate date = LocalDate.now(); // Create a date object
 				output = date.toString();
 				//output = LocalDate.now().toString();   it's a chain but not so readable for others
 			}
 			else if(command.equals("time")){
+			
+				LocalDateTime time = LocalDateTime.now();
 				output = time.toString(); 
 			}
-			else if(command.equals("username")){
+			else if(command.equals("useraccount")){
+			
+				String username = System.getProperty("user.name");
 				output = username.toString();
 			}
 			else if(command.equals("userhome")){
+	
+				String userhome = System.getProperty("user.home");
 				output = userhome.toString();
 			}
 			else if(command.equals("os")){
+
+				String osv = System.getProperty("os.version");
+				String os = System.getProperty("os.name");
 				output = String.format ("%s(%s)", os, osv);
 			}
 			else if(cmdInput.equals("printenv")){
+			
 				if(length > 1){
 					String argument = ret[1];
-
 					String printenv = System.getenv(argument);
 					output = printenv;
-				
-				
+
 					if(printenv == null){
-					output = " ";
+						output = " ";
 					}
 				}
 			}
 			else if (cmdInput.equals("echo")){
-				
-				String argument = ret[1];
-				String path = ret[2];
 
-				if(argument.equals("date")){
-					output = date.toString();
+				for( int i = 1; i < ret.length; i++){
+					output = output + " " + ret[i];
 				}
 
-				if(argument.equals("time")){
-					output = time.toString();
-				}
-
-				if(argument.equals("userhome")){
-					output = userhome.toString();
-				}
-
-				if(argument.equals("os")){
-					output = String.format ("%s(%s)", os, osv);
-				}
-
-				if(argument.equals("printenv")){
-					if(length > 1){
-					String printenv = System.getenv(argument);
-					output = path;
-					if(printenv == null){
-					}
-					}
-
-				}
-
-
-			}else {
+			}
+			else{
 				// String concatenation
 				output = "Command '" + command + "' not found.";
 			} 
@@ -107,6 +86,6 @@ public class Cli {
 		scanner.close(); // Best practice, always close a stream when no more needed
 		System.out.println("Bye!");
     }
-
 }
+
 
