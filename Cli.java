@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Properties;
 import java.lang.System;
+import java.lang.String;
 
 public class Cli {
 
@@ -19,7 +20,7 @@ public class Cli {
 			String command = scanner.nextLine(); // Get input from console as a string
 			String output = ""; // A variable named output of type String
 
-			String[] ret = command.split(" ", 5);
+			String[] ret = command.split(" ", 2);
 			String cmdInput = ret[0];
 			int length = ret.length;
 
@@ -27,7 +28,7 @@ public class Cli {
 
 
 
-			if (command.equals("exit")) {
+			if (command.equals("exit") || command.equals("logout")) {
 				break; // Forces exit of the while loop
 			}
 			else if(command.equals("date")){
@@ -58,22 +59,22 @@ public class Cli {
 				output = String.format ("%s(%s)", os, osv);
 			}
 			else if(cmdInput.equals("printenv")){
+					
 			
 				if(length > 1){
 					String argument = ret[1];
 					String printenv = System.getenv(argument);
 					output = printenv;
 
-					if(printenv == null){
-						output = " ";
-					}
+				if(argument == null){
+					argument = "PATH";
+					output = printenv;
 				}
+				
 			}
-			else if (cmdInput.equals("echo")){
-
-				for( int i = 1; i < ret.length; i++){
-					output = output + " " + ret[i];
-				}
+			else if (cmdInput.equals("echo") || cmdInput.equals("print")){
+				output = output + " " + ret[1];
+				
 
 			}
 			else{
