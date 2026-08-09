@@ -27,7 +27,7 @@ public class Cli {
 
 
 
-			if (command.equals("exit")) {
+			if (command.equals("exit") || command.equals("logout") {
 				break; // Forces exit of the while loop
 			}
 			else if(command.equals("date")){
