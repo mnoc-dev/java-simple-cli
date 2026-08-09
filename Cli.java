@@ -28,11 +28,8 @@ public class Cli {
 
 
 
-<<<<<<< HEAD
-			if (command.equals("exit") || command.equals("logout") {
-=======
+
 			if (command.equals("exit") || command.equals("logout")) {
->>>>>>> 99783e7a7924148995b55a73004159efe1a6fc42
 				break; // Forces exit of the while loop
 			}
 			else if(command.equals("date")){
@@ -73,8 +70,8 @@ public class Cli {
 				if(argument == null){
 					argument = "PATH";
 					output = printenv;
-				}
-				
+					}
+				}				
 			}
 			else if (cmdInput.equals("echo") || cmdInput.equals("print")){
 				output = output + " " + ret[1];
