@@ -4,29 +4,27 @@ import java.time.LocalDateTime;
 import java.util.Properties;
 import java.lang.System;
 import java.lang.String;
+import java.util.Map;
+import java.io.File;
+import java.util.HashSet;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.List;
 
 public class Cli {
 
-    // The main method is the entry point of the program. Rules regarding the main method:
-    //     - public: so the JVM can access it from "outside"
-    //     - static: so it can be called without creating an object (class scoped)
-    //     - void: it doesn't return a value (aka procedure)
-    //     - main: the required method name
-    //     - String[] args: so it can receive command-line arguments
-    public static void main(String[] args) {
+        public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in); // Listen to the standard input (console)
 		System.out.print("> "); // Prompt
 		while (true) { // Infinite loop
 			String command = scanner.nextLine(); // Get input from console as a string
 			String output = ""; // A variable named output of type String
 
+
 			String[] ret = command.split(" ", 2);
 			String cmdInput = ret[0];
 			int length = ret.length;
-
-
-
-
 
 			if (command.equals("exit") || command.equals("logout")) {
 				break; // Forces exit of the while loop
@@ -66,9 +64,16 @@ public class Cli {
 					String printenv = System.getenv(argument);
 					output = printenv;
 
-				if(argument == null){
-					argument = "PATH";
-					output = printenv;
+				}
+				else{
+					Map<String, String> env = System.getenv();
+					//String[] paths = envVar.split(";");
+					for(String envName : env.keySet()) {
+					System.out.format("%s=%s%n%n",
+                              			envName,
+                              			env.get(envName));
+
+					}
 				}
 				
 			}
@@ -76,6 +81,48 @@ public class Cli {
 				output = output + " " + ret[1];
 				
 
+			}
+			else if (cmdInput.equals("ls")){
+				if(length > 1){
+
+					String dirName = ret[1];
+					File dir = new File(dirName);
+					File[] files = dir.listFiles();
+
+					if (files != null || dir.isDirectory()){
+						for (File file : files){
+							System.out.format("%s%n", file.getName());
+						}
+					}
+					else{
+						output = "not a directory.";
+					}
+				}
+				else{
+					output = "not a directory.";
+
+				}
+			}
+			else if (cmdInput.equals("chuck")){
+					File chuckFile = new File("chuck.txt");
+
+				try (Scanner fileScanner = new Scanner(chuckFile)) {
+				    	List<String> quotes = new ArrayList<>();
+					
+
+					while (fileScanner.hasNextLine()) {
+				        String line = fileScanner.nextLine();
+        				quotes.add(line);
+				    }
+					fileScanner.close();
+					
+					Random random = new Random();
+					int randomIndex = random.nextInt(quotes.size());
+					output = quotes.get(randomIndex);
+				
+				} catch (FileNotFoundException e) {
+				output = "Error: chuck.txt file not found.";
+			}
 			}
 			else{
 				// String concatenation
@@ -88,5 +135,4 @@ public class Cli {
 		System.out.println("Bye!");
     }
 }
-
 
