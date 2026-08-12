@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.Properties;
 import java.lang.System;
 import java.lang.String;
-<<<<<<< HEAD
 import java.util.Map;
 import java.io.File;
 import java.util.HashSet;
@@ -12,9 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.List;
-=======
-import java.io.*;
->>>>>>> b32be76e0a0ec500b3a2ec5204e22b712629b8bf
+
 
 public class Cli {
 
@@ -30,14 +27,7 @@ public class Cli {
 			String cmdInput = ret[0];
 			int length = ret.length;
 
-<<<<<<< HEAD
-=======
 
-
-
-
-
->>>>>>> b32be76e0a0ec500b3a2ec5204e22b712629b8bf
 			if (command.equals("exit") || command.equals("logout")) {
 				break; // Forces exit of the while loop
 			}
@@ -76,26 +66,16 @@ public class Cli {
 					String printenv = System.getenv(argument);
 					output = printenv;
 
-<<<<<<< HEAD
 				}
 				else{
 					Map<String, String> env = System.getenv();
-					//String[] paths = envVar.split(";");
 					for(String envName : env.keySet()) {
 					System.out.format("%s=%s%n%n",
                               			envName,
                               			env.get(envName));
 
 					}
-				}
-				
-=======
-				if(argument == null){
-					argument = "PATH";
-					output = printenv;
-					}
 				}				
->>>>>>> b32be76e0a0ec500b3a2ec5204e22b712629b8bf
 			}
 			else if (cmdInput.equals("echo") || cmdInput.equals("print")){
 				output = output + " " + ret[1];
@@ -155,4 +135,5 @@ public class Cli {
 		System.out.println("Bye!");
     }
 }
+
 
